@@ -1,0 +1,36 @@
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { ColorService } from './color.service';
+import { CreateColorDTO } from './dto/create.dto';
+import { UpdateColorDTO } from './dto/update.dto';
+import { FindColorDTO } from './dto/find.dto';
+
+
+@Controller('color')
+export class ColorController {
+  constructor(private readonly colorService: ColorService) { }
+
+  @Post()
+  create(@Body() createColorDto: CreateColorDTO) {
+    return this.colorService.create(createColorDto);
+  }
+
+  @Get()
+  findAll(@Query() query: FindColorDTO) {
+    return this.colorService.findAll(query);
+  }
+
+  @Get(':id')
+  findOne(@Param('id') _id: number) {
+    return this.colorService.findOne(_id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') _id: number, @Body() body: UpdateColorDTO) {
+    return this.colorService.update(_id, body);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') _id: number) {
+    return this.colorService.remove(_id);
+  }
+}
