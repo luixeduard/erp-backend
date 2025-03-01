@@ -1,4 +1,5 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
+import { ClaveSat } from "src/modules/clave_sat/entity/clave_sat.entity";
 import { Color } from "src/modules/color/entity/color.entity";
 import { Medida } from "src/modules/medida/entity/medida.entity";
 
