@@ -1,0 +1,5 @@
+export enum TipoInsumo {
+  MATERIA_PRIMA = 'MATERIA PRIMA',
+  PRODUCTO = 'PRODUCTO',
+  SUBPRODUCTO = 'SUBPRODUCTO'
+}
