@@ -14,10 +14,10 @@ export class ColorController {
     return this.colorService.create(createColorDto);
   }
 
-  @Get()
+  /* @Get()
   findAll(@Query() query: FindColorDTO) {
     return this.colorService.findAll(query);
-  }
+  } */
 
   @Get(':id')
   findOne(@Param('id') _id: number) {

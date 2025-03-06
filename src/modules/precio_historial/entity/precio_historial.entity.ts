@@ -1,4 +1,5 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model } from "sequelize-typescript";
+import { Inventario } from "src/modules/inventario/entity/inventario.entity";
 
 export class PrecioHistorial extends Model<PrecioHistorial> {
   @Column({

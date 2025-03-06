@@ -1,4 +1,5 @@
 import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { CreateColorDTO } from "../dto/create.dto";
 
 @Table({
   paranoid: true,
@@ -24,7 +25,7 @@ import { Column, DataType, Model, Table } from "sequelize-typescript";
   ]
 })
 
-export class Color extends Model<Color> {
+export class Color extends Model<CreateColorDTO, CreateColorDTO> {
   @Column({
     primaryKey: true,
     allowNull: false,

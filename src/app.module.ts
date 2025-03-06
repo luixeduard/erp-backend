@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './core/configuration';
 import validationSchema from './core/configuration/schema/validationSchema';
-import database from './core/database';
+import DatabaseModule from './core/database';
+import { ColorModule } from './modules/color/color.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import database from './core/database';
       load: [configuration],
       isGlobal: true
     }),
-    database
+    DatabaseModule,
+    ColorModule
   ],
   controllers: [],
   providers: [],
