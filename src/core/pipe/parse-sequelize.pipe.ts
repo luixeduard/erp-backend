@@ -1,6 +1,7 @@
 import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from '@nestjs/common';
-import { Attributes, FindAndCountOptions, Model, WhereOptions, Op } from 'sequelize';
+import { Attributes, FindAndCountOptions, Model, WhereOptions, Op, Sequelize } from 'sequelize';
 import { inspect } from 'util';
+import { FunctionRepresentation } from '../global/dto/pagging.dto';
 
 type Include<TAttributes> = {
   where?: { [key in keyof TAttributes]: TAttributes[key] | Record<string, TAttributes[key]> },
@@ -8,7 +9,7 @@ type Include<TAttributes> = {
 }
 
 @Injectable()
-export class ParseSequelizePipe<T extends { where: string, include: string, order: string[][] }, TAttributes, M extends Model> implements PipeTransform<T, Omit<FindAndCountOptions<Attributes<M>>, "group"> | {} | undefined> {
+export class ParseSequelizePipe<T extends { where: string, include: string, order: string[][], attributes: (string | FunctionRepresentation)[] }, TAttributes, M extends Model> implements PipeTransform<T, Omit<FindAndCountOptions<Attributes<M>>, "group"> | {} | undefined> {
 
   private parseConditions(conditions: { [key in keyof TAttributes]: TAttributes[key] | Record<string, TAttributes[key]> }) {
     return Object.fromEntries(
@@ -107,10 +108,26 @@ export class ParseSequelizePipe<T extends { where: string, include: string, orde
     })
   }
 
+  private parseAttributes(attributes: (string | FunctionRepresentation)[]) {
+    return attributes.map((attr) => {
+      // Si es un objeto que representa una función, lo convertimos a una función de Sequelize
+      if (typeof attr === 'object' && attr.fn && attr.cols) {
+        const args = attr.cols.map((arg) =>
+          arg.is_col ? Sequelize.col(arg.value) : arg.value,
+        );
+        return [Sequelize.fn(attr.fn, ...args), attr.as];
+      }
+      // Si es un string, lo devolvemos sin cambios
+      return attr;
+    });
+  }
+
   transform(value: T, metadata: ArgumentMetadata) {
     const where = value.where ? this.getWhereConditionsSequelize(value.where) : undefined;
     const include = value.include ? this.getIncludesSequelize(value.include) : undefined;
     const order = value.order ? this.parseOrder(value.order) : undefined
+    const attributes = value.attributes ? this.parseAttributes(value.attributes) : undefined
+    console.log(attributes)
     return { ...value, where, include, order }
   }
 }
