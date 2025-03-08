@@ -4,9 +4,9 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AlmacenService {
-  // create(createAlmacenDto: CreateAlmacenDto) {
-  //   return 'This action adds a new almacen';
-  // }
+  create(createAlmacenDto: any) {
+    return 'LLEGA SERVICE';
+  }
 
   // findAll() {
   //   return `This action returns all almacen`;

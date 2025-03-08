@@ -4,6 +4,7 @@ import configuration from './core/configuration';
 import validationSchema from './core/configuration/schema/validationSchema';
 import DatabaseModule from './core/database';
 import { ColorModule } from './modules/color/color.module';
+import { AlmacenModule } from './modules/almacen/almacen.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { ColorModule } from './modules/color/color.module';
       isGlobal: true
     }),
     DatabaseModule,
-    ColorModule
+    ColorModule,
+    AlmacenModule
   ],
   controllers: [],
   providers: [],
