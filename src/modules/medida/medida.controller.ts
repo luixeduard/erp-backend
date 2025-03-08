@@ -4,7 +4,6 @@ import { CreateMedidaDTO } from './dto/create.dto';
 import { UpdateMedidaDTO } from './dto/update.dto';
 import { FindMedidaDTO } from './dto/find.dto';
 
-
 @Controller('medida')
 export class MedidaController {
   constructor(private readonly medidaService: MedidaService) {}

@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseInterceptors, ClassSerializerInterceptor, DefaultValuePipe } from '@nestjs/common';
 import { ColorService } from './color.service';
 import { CreateColorDTO } from './dto/create.dto';
 import { UpdateColorDTO } from './dto/update.dto';
 import { FindColorDTO } from './dto/find.dto';
+import { ParseSequelizePipe } from 'src/core/pipe/parse-sequelize.pipe';
+import { FindAndCountOptions } from 'sequelize';
 
 
 @Controller('color')
