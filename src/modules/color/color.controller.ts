@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseInterceptors, ClassSerializerInterceptor, DefaultValuePipe } from '@nestjs/common';
 import { ColorService } from './color.service';
 import { CreateColorDTO } from './dto/create.dto';
 import { UpdateColorDTO } from './dto/update.dto';
 import { FindColorDTO } from './dto/find.dto';
+import { ParseSequelizePipe } from 'src/core/pipe/parse-sequelize.pipe';
 
 
 @Controller('color')
@@ -14,10 +15,12 @@ export class ColorController {
     return this.colorService.create(createColorDto);
   }
 
-  /* @Get()
-  findAll(@Query() query: FindColorDTO) {
-    return this.colorService.findAll(query);
-  } */
+  @Get()
+  findAll(@Query(new DefaultValuePipe(false), ParseSequelizePipe) query: FindColorDTO) {
+    return query
+    //console.log(query)
+    //return this.colorService.findAll(query);
+  }
 
   @Get(':id')
   findOne(@Param('id') _id: number) {
