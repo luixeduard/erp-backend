@@ -4,6 +4,7 @@ import { CreateColorDTO } from './dto/create.dto';
 import { UpdateColorDTO } from './dto/update.dto';
 import { FindColorDTO } from './dto/find.dto';
 import { ParseSequelizePipe } from 'src/core/pipe/parse-sequelize.pipe';
+import { FindAndCountOptions } from 'sequelize';
 
 
 @Controller('color')
@@ -17,9 +18,7 @@ export class ColorController {
 
   @Get()
   findAll(@Query(new DefaultValuePipe(false), ParseSequelizePipe) query: FindColorDTO) {
-    return query
-    //console.log(query)
-    //return this.colorService.findAll(query);
+    return this.colorService.findAll(query as unknown as Omit<FindAndCountOptions<CreateColorDTO>, "group">);
   }
 
   @Get(':id')

@@ -2,10 +2,12 @@ import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from
 import { Attributes, FindAndCountOptions, Model, WhereOptions, Op, Sequelize } from 'sequelize';
 import { inspect } from 'util';
 import { FunctionRepresentation } from '../global/dto/pagging.dto';
+import { Fn } from 'sequelize/types/utils';
 
 type Include<TAttributes> = {
   where?: { [key in keyof TAttributes]: TAttributes[key] | Record<string, TAttributes[key]> },
   include?: Include<TAttributes> | Include<TAttributes>[]
+  attributes: ((string | FunctionRepresentation) | (string | Fn)) []
 }
 
 @Injectable()
@@ -77,6 +79,9 @@ export class ParseSequelizePipe<T extends { where: string, include: string, orde
         if ("include" in inc && inc.include) {
           inc.include = this.parseIncludes(inc.include);
         }
+        if ("attributes" in inc && inc.attributes) {
+          inc.attributes = this.parseAttributes(inc.attributes as (string | FunctionRepresentation)[]) as (string | Fn)[];
+        }
         return inc;
       });
     }
@@ -108,18 +113,22 @@ export class ParseSequelizePipe<T extends { where: string, include: string, orde
     })
   }
 
-  private parseAttributes(attributes: (string | FunctionRepresentation)[]) {
-    return attributes.map((attr) => {
-      // Si es un objeto que representa una función, lo convertimos a una función de Sequelize
-      if (typeof attr === 'object' && attr.fn && attr.cols) {
-        const args = attr.cols.map((arg) =>
-          arg.is_col ? Sequelize.col(arg.value) : arg.value,
-        );
-        return [Sequelize.fn(attr.fn, ...args), attr.as];
-      }
-      // Si es un string, lo devolvemos sin cambios
+  private mapAttribute(attr: string | FunctionRepresentation) {
+    if (typeof attr === "string") {
       return attr;
-    });
+    }
+    // Si es un objeto que representa una función, lo convertimos a una función de Sequelize
+    if (typeof attr === 'object' && attr.fn && attr.cols && attr) {
+      const args = attr.cols.map((arg) =>
+        arg.is_col ? Sequelize.col(arg.value) : arg.value,
+      );
+      return [Sequelize.fn(attr.fn, ...args), attr.as];
+    }
+    throw new BadRequestException("Invalid attributes format")
+  }
+
+  private parseAttributes(attributes: (string | FunctionRepresentation)[]) {
+    return attributes.map(this.mapAttribute);
   }
 
   transform(value: T, metadata: ArgumentMetadata) {
@@ -127,7 +136,6 @@ export class ParseSequelizePipe<T extends { where: string, include: string, orde
     const include = value.include ? this.getIncludesSequelize(value.include) : undefined;
     const order = value.order ? this.parseOrder(value.order) : undefined
     const attributes = value.attributes ? this.parseAttributes(value.attributes) : undefined
-    console.log(attributes)
-    return { ...value, where, include, order }
+    return { ...value, where, include, order, attributes }
   }
 }

@@ -38,57 +38,56 @@ export class FunctionRepresentation {
 
 export class PaggingDTO<T> {
   @ApiPropertyOptional()
-  @Transform(({ value }) => value.map((val) => isJSON(val) ? JSON.parse(val) : val}))
-@IsOptional()
-@IsArray()
-//@ValidateNested({ each: true })
-@Type(() => FunctionRepresentation, {
-  discriminator: {
-    property: 'type',
-    subTypes: [
-      { value: String, name: 'string' }, // Para strings
-      { value: FunctionRepresentation, name: 'function' }, // Para representaciones de funciones
-    ],
-  },
-})
-readonly attributes ?: (string | FunctionRepresentation)[];
-
-@ApiPropertyOptional()
-@IsOptional()
-@IsString()
-readonly search ?: string;
-
-@ApiPropertyOptional({
-  type: 'array', // Especifica que es un array
-  items: {
-    type: 'array', // Especifica que cada elemento es un array
-    items: {
-      type: 'string', // Especifica que cada elemento dentro del array es un string
+  @Transform(({ value }) => typeof value === "string" ? [isJSON(value) ? JSON.parse(value) : value] : value.map((val: string) => isJSON(val) ? JSON.parse(val) : val))
+  @IsOptional()
+  @IsArray()
+  @Type(() => FunctionRepresentation, {
+    discriminator: {
+      property: 'type',
+      subTypes: [
+        { value: String, name: 'string' }, // Para strings
+        { value: FunctionRepresentation, name: 'function' }, // Para representaciones de funciones
+      ],
     },
-  },
-})
-@Transform(({ value }) => Array.isArray(value) ? value.map(row => JSON.parse(row)) : [JSON.parse(value)])
-@IsOptional()
-@IsArray({ each: true }) // Valida que cada elemento sea un array
-readonly order ?: Order < T > [];
+  })
+  readonly attributes?: (string | FunctionRepresentation)[];
 
-@ApiPropertyOptional()
-@IsOptional()
-@IsString()
-readonly limit ?: string;
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  readonly search?: string;
 
-@ApiPropertyOptional()
-@IsOptional()
-@IsString()
-readonly skip ?: string;
+  @ApiPropertyOptional({
+    type: 'array', // Especifica que es un array
+    items: {
+      type: 'array', // Especifica que cada elemento es un array
+      items: {
+        type: 'string', // Especifica que cada elemento dentro del array es un string
+      },
+    },
+  })
+  @Transform(({ value }) => Array.isArray(value) ? value.map(row => JSON.parse(row)) : [JSON.parse(value)])
+  @IsOptional()
+  @IsArray({ each: true }) // Valida que cada elemento sea un array
+  readonly order?: Order<T>[];
 
-@ApiPropertyOptional()
-@IsOptional()
-@IsString()
-readonly where: string
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  readonly limit?: string;
 
-@ApiPropertyOptional()
-@IsOptional()
-@IsString()
-readonly include: string
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  readonly skip?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  readonly where: string
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  readonly include: string
 }

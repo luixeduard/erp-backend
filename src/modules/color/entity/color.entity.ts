@@ -32,17 +32,17 @@ export class Color extends Model<CreateColorDTO, CreateColorDTO> {
     autoIncrement: true,
     type: DataType.INTEGER
   })
-  _id: number
+  declare _id: number
 
   @Column({
     type: DataType.STRING,
     allowNull: false
   })
-  nombre: string
+  declare nombre: string
 
   @Column({
     type: DataType.STRING,
     allowNull: true
   })
-  codigo: string
+  declare codigo: string
 }
