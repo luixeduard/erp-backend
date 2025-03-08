@@ -16,7 +16,7 @@ export class MedidaController {
 
   @Get()
   findAll(@Query() query:FindMedidaDTO) {
-    return this.medidaService.findAll(query);
+    return this.medidaService.findAll();
   }
 
   @Get(':id')

@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMedidaDto } from './dto/create.dto';
-import { UpdateMedidaDto } from './dto/update.dto';
+import { CreateMedidaDTO } from './dto/create.dto';
+import { UpdateMedidaDTO } from './dto/update.dto';
+
 
 @Injectable()
 export class MedidaService {
-  create(createMedidaDto: CreateMedidaDto) {
+  create(createMedidaDto: CreateMedidaDTO) {
     return 'This action adds a new medida';
   }
 
@@ -16,7 +17,7 @@ export class MedidaService {
     return `This action returns a #${id} medida`;
   }
 
-  update(id: number, updateMedidaDto: UpdateMedidaDto) {
+  update(id: number, updateMedidaDto: UpdateMedidaDTO) {
     return `This action updates a #${id} medida`;
   }
 

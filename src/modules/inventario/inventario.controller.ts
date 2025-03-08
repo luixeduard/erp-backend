@@ -15,7 +15,7 @@ export class InventarioController {
 
   @Get()
   findAll(@Query() query: FindInventarioDTO) {
-    return this.inventarioService.findAll(query);
+    return this.inventarioService.findAll();
   }
 
   @Get(':id')

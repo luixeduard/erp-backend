@@ -16,7 +16,7 @@ export class ColorController {
 
   @Get()
   findAll(@Query() query: FindColorDTO) {
-    return this.colorService.findAll(query);
+    return this.colorService.findAll();
   }
 
   @Get(':id')

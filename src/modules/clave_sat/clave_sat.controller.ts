@@ -16,7 +16,7 @@ export class ClaveSatController {
 
   @Get()
   findAll(@Query() query: FindClaveSatDTO) {
-    return this.claveSatService.findAll(query);
+    // return this.claveSatService.findAll(query);
   }
 
   @Get(':id')

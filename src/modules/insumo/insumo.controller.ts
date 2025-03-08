@@ -16,7 +16,7 @@ export class InsumoController {
 
   @Get()
   findAll(@Query() query: FindInsumoDTO) {
-    return this.insumoService.findAll(query);
+    return this.insumoService.findAll();
   }
 
   @Get(':id')

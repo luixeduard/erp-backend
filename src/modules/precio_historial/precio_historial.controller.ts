@@ -16,7 +16,7 @@ export class PrecioHistorialController {
 
   @Get()
   findAll(@Query() query: FindPrecioHistorialDTO) {
-    return this.precioHistorialService.findAll(query);
+    return this.precioHistorialService.findAll();
   }
 
   @Get(':id')

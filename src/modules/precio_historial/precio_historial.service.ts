@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePrecioHistorialDto } from './dto/create.dto';
-import { UpdatePrecioHistorialDto } from './dto/update.dto';
+import { CreatePrecioHistorialDTO } from './dto/create.dto';
+import { UpdatePrecioHistorialDTO } from './dto/update.dto';
 
 @Injectable()
 export class PrecioHistorialService {
-  create(createPrecioHistorialDto: CreatePrecioHistorialDto) {
+  create(createPrecioHistorialDto: CreatePrecioHistorialDTO) {
     return 'This action adds a new precioHistorial';
   }
 
@@ -16,7 +16,7 @@ export class PrecioHistorialService {
     return `This action returns a #${id} precioHistorial`;
   }
 
-  update(id: number, updatePrecioHistorialDto: UpdatePrecioHistorialDto) {
+  update(id: number, updatePrecioHistorialDto: UpdatePrecioHistorialDTO) {
     return `This action updates a #${id} precioHistorial`;
   }
 
