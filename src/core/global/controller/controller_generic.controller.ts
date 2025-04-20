@@ -1,28 +1,28 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Patch, Query } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-export interface IGenericService<TCreateDTO, TUpdateDTO, TPatchDTO, TFindDTO, TClassDTO, TClassPaggingDTO> {
-  create(body: TCreateDTO): Promise<TClassDTO>;
-  findAll(body: TFindDTO): Promise<TClassPaggingDTO>;
-  findOne(id: string): Promise<TClassDTO>;
-  update(id: string, updateDto: TUpdateDTO): Promise<TClassDTO>;
-  patch(id: string, patchDto: TPatchDTO): Promise<TClassDTO>;
-  remove(id: string): Promise<void>;
-}
+// export interface IGenericService<TCreateDTO, TUpdateDTO, TPatchDTO, TFindDTO, TClassDTO, TClassPaggingDTO> {
+//   create(body: TCreateDTO): Promise<TClassDTO>;
+//   findAll(body: TFindDTO): Promise<TClassPaggingDTO>;
+//   findOne(id: string): Promise<TClassDTO>;
+//   update(id: string, updateDto: TUpdateDTO): Promise<TClassDTO>;
+//   patch(id: string, patchDto: TPatchDTO): Promise<TClassDTO>;
+//   remove(id: string): Promise<void>;
+// }
 
 
 export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, TClassDTO, TClassPaggingDTO>(
   CreateDTO: new () => TCreateDTO,
-  FindDTO: new ()=> TFindDTO,
-  UpdateDTO: new ()=> TUpdateDTO,
-  PatchDTO: new ()=> TPatchDTO,
-  ClassDTO: new ()=> TClassDTO,
-  ClassPaggingDTO: new ()=> TClassPaggingDTO,
+  FindDTO: new () => TFindDTO,
+  UpdateDTO: new () => TUpdateDTO,
+  PatchDTO: new () => TPatchDTO,
+  ClassDTO: new () => TClassDTO,
+  ClassPaggingDTO: new () => TClassPaggingDTO,
   name: string,
 ) {
   @Controller(name)
   @ApiTags(name)
   class GenericControllerHost {
-    constructor(readonly service: IGenericService<TCreateDTO, TUpdateDTO, TPatchDTO, TFindDTO, TClassDTO, TClassPaggingDTO>) { }
+    constructor(readonly service) { }
 
     @Post()
     @ApiOperation({ summary: `Metodo para creación de ${name}` })
