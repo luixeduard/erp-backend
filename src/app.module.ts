@@ -19,4 +19,4 @@ import { ColorModule } from './modules/color/color.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
