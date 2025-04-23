@@ -1,13 +1,13 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Patch, Query } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PaggingDTO } from '../dto/pagging.dto';
 
-export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, TClassDTO, TClassPaggingDTO>(
+export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, TClassDTO>(
   CreateDTO: new () => TCreateDTO,
   FindDTO: new () => TFindDTO,
   UpdateDTO: new () => TUpdateDTO,
   PatchDTO: new () => TPatchDTO,
   ClassDTO: new () => TClassDTO,
-  ClassPaggingDTO: new () => TClassPaggingDTO,
   name: string,
 ) {
   @Controller()
@@ -33,7 +33,7 @@ export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, T
     @ApiResponse({
       status: 200,
       description: `${name} obtenidos con exito.`,
-      type: ClassPaggingDTO,
+      type: PaggingDTO,
     })
     async findAll(@Query() body: TFindDTO): Promise<any> {
       return this.service.findAll(body);

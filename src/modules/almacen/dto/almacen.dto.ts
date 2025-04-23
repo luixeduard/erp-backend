@@ -14,8 +14,3 @@ export class AlmacenDTO extends TimeStampsDTO{
   @ApiProperty({ example: true })
   enabled: boolean
 }
-
-export class AlmacenPagginDTO extends PageDTO {
-  @ApiProperty({ type: AlmacenDTO, isArray: true })
-  readonly data: AlmacenDTO[]
-}
