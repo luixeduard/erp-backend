@@ -21,4 +21,4 @@ import { AlmacenModule } from './modules/almacen/almacen.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
