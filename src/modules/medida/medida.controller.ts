@@ -1,35 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
-import { MedidaService } from './medida.service';
-import { CreateMedidaDTO } from './dto/create.dto';
-import { UpdateMedidaDTO } from './dto/update.dto';
-import { FindMedidaDTO } from './dto/find.dto';
+import { Controller } from "@nestjs/common";
+import { GenericController } from "src/core/global/controller/base.controller";
+import { CreateMedidaDTO } from "./dto/create.dto";
+import { FindMedidaDTO } from "./dto/find.dto";
+import { PatchMedidaDTO, UpdateMedidaDTO } from "./dto/update.dto";
+import { MedidaService } from "./medida.service";
+import { MedidaDTO, MedidaPaggingDTO } from "./dto/medida.dto";
 
-@Controller('medida')
-export class MedidaController {
-  constructor(private readonly medidaService: MedidaService) {}
 
-  @Post()
-  create(@Body() body: CreateMedidaDTO) {
-    return this.medidaService.create(body);
-  }
-
-  @Get()
-  findAll(@Query() query:FindMedidaDTO) {
-    return this.medidaService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') _id: number) {
-    return this.medidaService.findOne(_id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') _id: number, @Body() body: UpdateMedidaDTO) {
-    return this.medidaService.update(_id, body);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') _id: number) {
-    return this.medidaService.remove(_id);
+@Controller('Medida')
+export class MedidaController extends GenericController<CreateMedidaDTO, FindMedidaDTO, UpdateMedidaDTO, PatchMedidaDTO, MedidaDTO, MedidaPaggingDTO>(
+  CreateMedidaDTO,
+  FindMedidaDTO,
+  UpdateMedidaDTO,
+  PatchMedidaDTO,
+  MedidaDTO,
+  MedidaPaggingDTO,
+  'Medida'
+) {
+  constructor(private readonly MedidaService: MedidaService) {
+    super(MedidaService);
   }
 }

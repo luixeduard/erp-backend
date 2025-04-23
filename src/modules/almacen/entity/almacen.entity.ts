@@ -1,4 +1,5 @@
 import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { CreateAlmacenDTO } from "../dto/create.dto";
 
 @Table({
   paranoid: true,
@@ -13,7 +14,7 @@ import { Column, DataType, Model, Table } from "sequelize-typescript";
   }]
 })
 
-export class Almacen extends Model<Almacen> {
+export class Almacen extends Model<CreateAlmacenDTO, CreateAlmacenDTO> {
   @Column({
     primaryKey: true,
     allowNull: false,

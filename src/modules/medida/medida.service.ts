@@ -1,27 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { BaseService } from 'src/core/global/service/base.service';
 import { CreateMedidaDTO } from './dto/create.dto';
 import { UpdateMedidaDTO } from './dto/update.dto';
-
+import { Medida } from './entity/medida.entity';
 
 @Injectable()
-export class MedidaService {
-  create(createMedidaDto: CreateMedidaDTO) {
-    return 'This action adds a new medida';
-  }
-
-  findAll() {
-    return `This action returns all medida`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} medida`;
-  }
-
-  update(id: number, updateMedidaDto: UpdateMedidaDTO) {
-    return `This action updates a #${id} medida`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} medida`;
+export class MedidaService extends BaseService<Medida, CreateMedidaDTO, UpdateMedidaDTO> {
+  constructor(@InjectModel(Medida) private readonly MedidaModel: typeof Medida) {
+    super(MedidaModel)
   }
 }

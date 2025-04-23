@@ -1,36 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
-import { ClaveSatService } from './clave_sat.service';
-import { CreateClaveSatDTO } from './dto/create.dto';
-import { UpdateClaveSatDTO } from './dto/update.dto';
-import { FindClaveSatDTO } from './dto/find.dto';
-
+import { Controller } from "@nestjs/common";
+import { GenericController } from "src/core/global/controller/base.controller";
+import { ClaveSatDTO, ClaveSatPaggingDTO } from "./dto/clave_sat.dto";
+import { CreateClaveSatDTO } from "./dto/create.dto";
+import { FindClaveSatDTO } from "./dto/find.dto";
+import { PatchClaveSatDTO, UpdateClaveSatDTO } from "./dto/update.dto";
+import { ClaveSatService } from "./clave_sat.service";
 
 @Controller('clave-sat')
-export class ClaveSatController {
-  constructor(private readonly claveSatService: ClaveSatService) { }
-
-  @Post()
-  create(@Body() body: CreateClaveSatDTO) {
-    return this.claveSatService.create(body);
-  }
-
-  @Get()
-  findAll(@Query() query: FindClaveSatDTO) {
-    // return this.claveSatService.findAll(query);
-  }
-
-  @Get(':id')
-  findOne(@Param('id') _id: number) {
-    return this.claveSatService.findOne(_id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') _id: number, @Body() body: UpdateClaveSatDTO) {
-    return this.claveSatService.update(_id, body);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') _id: number) {
-    return this.claveSatService.remove(_id);
+export class ClaveSatController extends GenericController<CreateClaveSatDTO, FindClaveSatDTO, UpdateClaveSatDTO, PatchClaveSatDTO, ClaveSatDTO, ClaveSatPaggingDTO>(
+  CreateClaveSatDTO,
+  FindClaveSatDTO,
+  UpdateClaveSatDTO,
+  PatchClaveSatDTO,
+  ClaveSatDTO,
+  ClaveSatPaggingDTO,
+  'Clave Sat'
+) {
+  constructor(private readonly ClaveSatService: ClaveSatService) {
+    super(ClaveSatService);
   }
 }

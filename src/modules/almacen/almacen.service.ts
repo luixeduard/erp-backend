@@ -1,30 +1,13 @@
 import { Injectable } from '@nestjs/common';
-// import { CreateAlmacenDto } from './dto/create.dto';
-// import { UpdateAlmacenDto } from './dto/update.dto';
+import { InjectModel } from '@nestjs/sequelize';
+import { BaseService } from 'src/core/global/service/base.service';
+import { Almacen } from './entity/almacen.entity';
+import { CreateAlmacenDTO } from './dto/create.dto';
+import { UpdateAlmacenDTO } from './dto/update.dto';
 
 @Injectable()
-export class AlmacenService {
-  create(createAlmacenDto: any) {
-    return 'LLEGA SERVICE';
-  }
-
-  findAll() {
-    return `This action returns all almacen`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} almacen`;
-  }
-
-  update(id: number, updateAlmacenDto) {
-    return `This action updates a #${id} almacen`;
-  }
-
-  patch(id: number, updateAlmacenDto) {
-    return `This action updates a #${id} almacen`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} almacen`;
+export class AlmacenService extends BaseService<Almacen, CreateAlmacenDTO, UpdateAlmacenDTO>{
+  constructor(@InjectModel(Almacen) private readonly AlmacenModel: typeof Almacen) {
+    super(AlmacenModel)
   }
 }

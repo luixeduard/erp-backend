@@ -2,6 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize
 import { ClaveSat } from "src/modules/clave_sat/entity/clave_sat.entity";
 import { Color } from "src/modules/color/entity/color.entity";
 import { Medida } from "src/modules/medida/entity/medida.entity";
+import { CreateInsumoDTO } from "../dto/create.dto";
 
 @Table({
   paranoid: true,
@@ -27,7 +28,7 @@ import { Medida } from "src/modules/medida/entity/medida.entity";
   ]
 })
 
-export class Insumo extends Model<Insumo> {
+export class Insumo extends Model<CreateInsumoDTO, CreateInsumoDTO> {
   @Column({
     primaryKey: true,
     allowNull: false,
@@ -56,7 +57,7 @@ export class Insumo extends Model<Insumo> {
 
   @ForeignKey(() => Medida)
   @Column({
-    type: DataType.NUMBER,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   medida_id: number
@@ -66,7 +67,7 @@ export class Insumo extends Model<Insumo> {
 
   @ForeignKey(() => Color)
   @Column({
-    type: DataType.NUMBER,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   color_id: number
@@ -75,7 +76,7 @@ export class Insumo extends Model<Insumo> {
 
   @ForeignKey(() => ClaveSat)
   @Column({
-    type: DataType.NUMBER,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   clave_sat_id: number

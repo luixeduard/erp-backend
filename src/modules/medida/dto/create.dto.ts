@@ -6,25 +6,25 @@ export class CreateMedidaDTO extends NamedObjectRequiredDTO {
   @ApiPropertyOptional()
   @IsOptional()
   @IsNumber()
-  readonly ancho: number
+  readonly ancho?: number
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsNumber()
-  readonly largo: number
+  readonly largo?: number
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsNumber()
-  readonly alto: number
+  readonly alto?: number
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsNumber()
-  readonly peso: number
+  readonly peso?: number
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsNumber()
-  readonly volumen: number
+  readonly volumen?: number
 }

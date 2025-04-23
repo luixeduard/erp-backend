@@ -5,6 +5,9 @@ import validationSchema from './core/configuration/schema/validationSchema';
 import DatabaseModule from './core/database';
 import { ColorModule } from './modules/color/color.module';
 import { AlmacenModule } from './modules/almacen/almacen.module';
+import { InsumoModule } from './modules/insumo/insumo.module';
+import { ClaveSatModule } from './modules/clave_sat/clave_sat.module';
+import { MedidaModule } from './modules/medida/medida.module';
 
 @Module({
   imports: [
@@ -16,7 +19,10 @@ import { AlmacenModule } from './modules/almacen/almacen.module';
     }),
     DatabaseModule,
     ColorModule,
-    AlmacenModule
+    AlmacenModule,
+    MedidaModule,
+    InsumoModule,
+    ClaveSatModule,
   ],
   controllers: [],
   providers: [],

@@ -1,36 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
-import { InsumoService } from './insumo.service';
-import { CreateInsumoDTO } from './dto/create.dto';
-import { UpdateInsumoDTO } from './dto/update.dto';
-import { FindInsumoDTO } from './dto/find.dto';
+import { Controller } from "@nestjs/common";
+import { GenericController } from "src/core/global/controller/base.controller";
+import { CreateInsumoDTO } from "./dto/create.dto";
+import { FindInsumoDTO } from "./dto/find.dto";
+import { InsumoDTO, InsumoPaggingDTO } from "./dto/insumo.dto";
+import { PatchInsumoDTO, UpdateInsumoDTO } from "./dto/update.dto";
+import { InsumoService } from "./insumo.service";
 
 
 @Controller('insumo')
-export class InsumoController {
-  constructor(private readonly insumoService: InsumoService) {}
-
-  @Post()
-  create(@Body() body: CreateInsumoDTO) {
-    return this.insumoService.create(body);
-  }
-
-  @Get()
-  findAll(@Query() query: FindInsumoDTO) {
-    return this.insumoService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') _id: number) {
-    return this.insumoService.findOne(_id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') _id: number, @Body() body: UpdateInsumoDTO) {
-    return this.insumoService.update(_id, body);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') _id: number) {
-    return this.insumoService.remove(_id);
+export class InsumoController extends GenericController<CreateInsumoDTO, FindInsumoDTO, UpdateInsumoDTO, PatchInsumoDTO, InsumoDTO, InsumoPaggingDTO>(
+  CreateInsumoDTO,
+  FindInsumoDTO,
+  UpdateInsumoDTO,
+  PatchInsumoDTO,
+  InsumoDTO,
+  InsumoPaggingDTO,
+  'Insumo'
+) {
+  constructor(private readonly InsumoService: InsumoService) {
+    super(InsumoService);
   }
 }
