@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClaveSatService } from './clave_sat.service';
 import { ClaveSatController } from './clave_sat.controller';
-import { Sequelize } from 'sequelize-typescript';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ClaveSat } from './entity/clave_sat.entity';
 

@@ -1,13 +1,13 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { ApiPropertyOptional } from "@nestjs/swagger";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateClaveSatDTO {
-  @ApiProperty()
-  @IsNotEmpty()
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsString()
   readonly descripcion: string
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional()
   @IsNumber()
   readonly clave_sat_id?: number

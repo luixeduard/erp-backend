@@ -1,4 +1,5 @@
 import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { CreateMedidaDTO } from "../dto/create.dto";
 
 @Table({
   paranoid: true,
@@ -13,7 +14,7 @@ import { Column, DataType, Model, Table } from "sequelize-typescript";
   }]
 })
 
-export class Medida extends Model<Medida> {
+export class Medida extends Model<CreateMedidaDTO, CreateMedidaDTO> {
   @Column({
     primaryKey: true,
     allowNull: false,

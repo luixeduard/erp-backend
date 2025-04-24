@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform, Type } from "class-transformer";
 import { IsArray, IsBoolean, isJSON, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
@@ -90,4 +91,16 @@ export class PaggingDTO<T> {
   @IsOptional()
   @IsString()
   readonly include: string
+}
+
+export class TimeStampsDTO {
+  @ApiProperty({ example: faker.date.anytime() })
+  readonly createdAt: Date;
+  @ApiProperty({ example: faker.date.anytime() })
+  readonly updatedAt: Date
+}
+
+export class PageDTO {
+  @ApiProperty({ example: faker.number.int(10) })
+  count: number
 }
