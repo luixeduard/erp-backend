@@ -8,6 +8,11 @@ import { AlmacenModule } from './modules/almacen/almacen.module';
 import { InsumoModule } from './modules/insumo/insumo.module';
 import { ClaveSatModule } from './modules/clave_sat/clave_sat.module';
 import { MedidaModule } from './modules/medida/medida.module';
+import { InventarioModule } from './modules/inventario/inventario.module';
+import { UsuarioModule } from './modules/usuario/usuario.module';
+import { ProveedorModule } from './modules/proveedor/proveedor.module';
+import { ArchivoModule } from './modules/archivo/archivo.module';
+import { EntradaModule } from './modules/entrada/entrada.module';
 
 @Module({
   imports: [
@@ -23,6 +28,11 @@ import { MedidaModule } from './modules/medida/medida.module';
     MedidaModule,
     InsumoModule,
     ClaveSatModule,
+    InventarioModule,
+    UsuarioModule,
+    ProveedorModule,
+    ArchivoModule,
+    EntradaModule
   ],
   controllers: [],
   providers: [],

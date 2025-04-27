@@ -14,7 +14,7 @@ export class AlmacenController extends GenericController<CreateAlmacenDTO, FindA
   PatchAlmacenDTO,
   AlmacenDTO,
   AlmacenPaggingDTO,
-  'almacen'
+  'Almacen'
 ) {
   constructor(private readonly almacenService: AlmacenService) {
     super(almacenService);

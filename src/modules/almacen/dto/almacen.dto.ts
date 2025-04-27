@@ -1,7 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { ApiProperty } from "@nestjs/swagger";
 import { PageDTO, TimeStampsDTO } from "src/core/global/dto/pagging.dto";
-import { CreateAlmacenDTO } from "./create.dto";
 
 export class AlmacenDTO extends TimeStampsDTO {
   @ApiProperty({ example: faker.lorem.word() })
@@ -18,5 +17,5 @@ export class AlmacenDTO extends TimeStampsDTO {
 
 export class AlmacenPaggingDTO extends PageDTO {
   @ApiProperty({ type: AlmacenDTO, isArray: true })
-  readonly data: CreateAlmacenDTO[]
+  readonly data: AlmacenDTO[]
 }

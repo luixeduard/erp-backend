@@ -2,6 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize
 import { Almacen } from "src/modules/almacen/entity/almacen.entity";
 import { Clasificacion } from "../enums/clasificacion.enum";
 import { Insumo } from "src/modules/insumo/entity/insumo.entity";
+import { CreateInventarioDTO } from "../dto/create.dto";
 
 @Table({
   paranoid: true,
@@ -16,7 +17,7 @@ import { Insumo } from "src/modules/insumo/entity/insumo.entity";
   }]
 })
 
-export class Inventario extends Model<Inventario> {
+export class Inventario extends Model<CreateInventarioDTO, CreateInventarioDTO> {
   @Column({
     primaryKey: true,
     allowNull: false,
