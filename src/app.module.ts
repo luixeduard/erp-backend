@@ -13,6 +13,7 @@ import { UsuarioModule } from './modules/usuario/usuario.module';
 import { ProveedorModule } from './modules/proveedor/proveedor.module';
 import { ArchivoModule } from './modules/archivo/archivo.module';
 import { EntradaModule } from './modules/entrada/entrada.module';
+import { EncargadoAlmacenModule } from './modules/encargado_almacen/encargado_almacen.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { EntradaModule } from './modules/entrada/entrada.module';
     UsuarioModule,
     ProveedorModule,
     ArchivoModule,
-    EntradaModule
+    EntradaModule,
+    EncargadoAlmacenModule
   ],
   controllers: [],
   providers: [],
