@@ -8,6 +8,8 @@ export class BaseService<
   T extends Model,
   CreateDTO extends CreationAttributes<T>,
   UpdateDto extends Partial<Attributes<T>>,
+  PatchDto extends Partial<Attributes<T>>,
+
 > {
   constructor(@InjectModel(Model) private readonly model: ModelCtor<T>) { }
 
@@ -43,5 +45,13 @@ export class BaseService<
     if (result === 0) {
       throw new NotFoundException('El registro no existe');
     }
+  }
+
+  async patch(_id: string | number, data: PatchDto): Promise<T> {
+    const [affected, rows] = await this.model.update(data, { where: { _id } as WhereAttributeHashValue<Attributes<T>["_id"]>, returning: true });
+    if (affected === 0) {
+      throw new NotFoundException("El registro no existe")
+    }
+    return rows[0]
   }
 }
