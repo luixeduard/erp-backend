@@ -8,6 +8,7 @@ import { AlmacenModule } from './modules/almacen/almacen.module';
 import { InsumoModule } from './modules/insumo/insumo.module';
 import { ClaveSatModule } from './modules/clave_sat/clave_sat.module';
 import { MedidaModule } from './modules/medida/medida.module';
+import { ReportesModule } from './modules/reportes/reportes.module';
 import { InventarioModule } from './modules/inventario/inventario.module';
 import { UsuarioModule } from './modules/usuario/usuario.module';
 import { ProveedorModule } from './modules/proveedor/proveedor.module';
@@ -29,6 +30,7 @@ import { EncargadoAlmacenModule } from './modules/encargado_almacen/encargado_al
     MedidaModule,
     InsumoModule,
     ClaveSatModule,
+    ReportesModule,
     InventarioModule,
     UsuarioModule,
     ProveedorModule,
