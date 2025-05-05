@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { json, urlencoded } from 'express';
+import { CatchEverythingFilter } from './core/exceptions/everything.exception';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,6 +18,8 @@ async function bootstrap() {
       whitelist: false
     }),
   );
+
+  app.useGlobalFilters(new CatchEverythingFilter())
 
   const config = new DocumentBuilder()
     .setTitle('ERP')
