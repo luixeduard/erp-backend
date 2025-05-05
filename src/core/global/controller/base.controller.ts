@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Patch, Query } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, TClassDTO, TClassPaggingDTO>(
   CreateDTO: new () => TCreateDTO,
@@ -16,6 +16,7 @@ export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, T
     constructor(readonly service) { }
 
     @Post()
+    @ApiConsumes('application/json', 'application/x-www-form-urlencoded')
     @ApiOperation({ summary: `Metodo para creación de ${name}` })
     @ApiBody({ type: CreateDTO })
     @ApiResponse({
@@ -28,6 +29,7 @@ export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, T
     }
 
     @Get()
+    @ApiConsumes('application/json', 'application/x-www-form-urlencoded')
     @ApiOperation({ summary: `Metodo para obtener ${name}s` })
     @ApiQuery({ type: FindDTO })
     @ApiResponse({
@@ -40,6 +42,7 @@ export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, T
     }
 
     @Get(':id')
+    @ApiConsumes('application/json', 'application/x-www-form-urlencoded')
     @ApiOperation({ summary: `Metodo para obtener un unico ${name}` })
     @ApiParam({ name: 'id', type: String })
     @ApiResponse({
@@ -51,6 +54,7 @@ export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, T
     }
 
     @Put(':id')
+    @ApiConsumes('application/json', 'application/x-www-form-urlencoded')
     @ApiOperation({ summary: `Metodo para actualizar ${name}` })
     @ApiParam({ name: 'id', type: String })
     @ApiBody({ type: UpdateDTO })
@@ -63,6 +67,7 @@ export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, T
     }
 
     @Patch(':id')
+    @ApiConsumes('application/json', 'application/x-www-form-urlencoded')
     @ApiOperation({ summary: `Metodo para actualizar parcialmente ${name}` })
     @ApiParam({ name: 'id', type: String })
     @ApiBody({ type: PatchDTO })
@@ -75,6 +80,7 @@ export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, T
     }
 
     @Delete(':id')
+    @ApiConsumes('application/json', 'application/x-www-form-urlencoded')
     @ApiOperation({ summary: `Metodo para eliminar ${name}` })
     @ApiParam({ name: 'id', type: String })
     @ApiResponse({

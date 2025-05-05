@@ -7,9 +7,9 @@ import { json, urlencoded } from 'express';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors()
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
-
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -23,8 +23,10 @@ async function bootstrap() {
     .setDescription('Enterprise Resource Planning')
     .setVersion('1.0')
     .build();
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
+  const documentFactory = () => SwaggerModule.createDocument(app, config,
+
+  );
+  SwaggerModule.setup('api', app, documentFactory, { swaggerOptions: { docExpansion: 'none' } });
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
