@@ -8,6 +8,8 @@ import { AlmacenModule } from './modules/almacen/almacen.module';
 import { InsumoModule } from './modules/insumo/insumo.module';
 import { ClaveSatModule } from './modules/clave_sat/clave_sat.module';
 import { MedidaModule } from './modules/medida/medida.module';
+import { ReportsModule } from './modules/reports/reports.module';
+import { ReportesModule } from './modules/reportes/reportes.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { MedidaModule } from './modules/medida/medida.module';
     MedidaModule,
     InsumoModule,
     ClaveSatModule,
+    ReportsModule,
+    ReportesModule,
   ],
   controllers: [],
   providers: [],
