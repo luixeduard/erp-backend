@@ -1,9 +1,10 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { AllowNull, BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 import { ClaveSat } from "src/modules/clave_sat/entity/clave_sat.entity";
 import { Color } from "src/modules/color/entity/color.entity";
 import { Medida } from "src/modules/medida/entity/medida.entity";
 import { CreateInsumoDTO } from "../dto/create.dto";
 import { Inventario } from "src/modules/inventario/entity/inventario.entity";
+import { TipoInsumo } from "../enums/tipo_insumo.enum";
 
 @Table({
   paranoid: true,
@@ -95,6 +96,12 @@ export class Insumo extends Model<CreateInsumoDTO, CreateInsumoDTO> {
     allowNull: false,
   })
   costo: number
+
+  @Column({
+    type: DataType.ENUM(...Object.values(TipoInsumo)),
+    allowNull: true
+  })
+  tipo: TipoInsumo
 
   @HasMany(() => Inventario)
   inventarios: Inventario[]
