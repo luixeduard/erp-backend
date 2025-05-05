@@ -78,7 +78,7 @@ export class Insumo extends Model<CreateInsumoDTO, CreateInsumoDTO> {
   @ForeignKey(() => ClaveSat)
   @Column({
     type: DataType.INTEGER,
-    allowNull: false,
+    allowNull: true,
   })
   clave_sat_id: number
   @BelongsTo(() => ClaveSat)
