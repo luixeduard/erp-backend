@@ -1,5 +1,6 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
 import { CreateAlmacenDTO } from "../dto/create.dto";
+import { Inventario } from "src/modules/inventario/entity/inventario.entity";
 
 @Table({
   paranoid: true,
@@ -52,4 +53,7 @@ export class Almacen extends Model<CreateAlmacenDTO, CreateAlmacenDTO> {
     allowNull: false
   })
   enabled: boolean
+
+  @HasMany(() => Inventario)
+  inventarios: Inventario[]
 }

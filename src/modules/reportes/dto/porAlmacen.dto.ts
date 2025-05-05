@@ -1,11 +1,18 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsInt, IsOptional, IsUUID } from "class-validator";
+import { ApiProperty, PickType } from "@nestjs/swagger";
+import { Transform } from "class-transformer";
+import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsNumberString, IsOptional } from "class-validator";
 import { PaggingDTO } from "src/core/global/dto/pagging.dto";
-import { Almacen } from "src/modules/almacen/entity/almacen.entity";
+import { InsumoDTO } from "src/modules/insumo/dto/insumo.dto";
+import { Clasificacion } from "src/modules/inventario/enums/clasificacion.enum";
 
-export class PorAlmacenDTO extends PaggingDTO<Pro> {
+export class PorAlmacenDTO extends PickType(PaggingDTO<InsumoDTO>, ["search", "order", "limit"]) {
   @ApiProperty()
-  @IsOptional()
-  @IsInt()
-  almacen?: string
+  @Transform(({value}) => Number(value))
+  @IsNotEmpty()
+  @IsNumber()
+  almacen_id: number
+  @ApiProperty({ enum: Clasificacion })
+  @IsNotEmpty()
+  @IsEnum(Clasificacion)
+  clasificacion: Clasificacion
 }

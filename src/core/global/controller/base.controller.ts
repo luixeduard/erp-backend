@@ -1,5 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Patch, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Patch, Query, DefaultValuePipe } from '@nestjs/common';
 import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { FindAndCountOptions } from 'sequelize';
+import { ParseSequelizePipe } from 'src/core/pipe/parse-sequelize.pipe';
 
 export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, TClassDTO, TClassPaggingDTO>(
   CreateDTO: new () => TCreateDTO,
@@ -24,7 +26,7 @@ export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, T
       description: `${name} creado con exito.`,
       type: ClassDTO,
     })
-    async create(@Body() body: TCreateDTO): Promise<any> {
+    create(@Body() body: TCreateDTO): Promise<any> {
       return this.service.create(body);
     }
 
@@ -37,8 +39,8 @@ export function GenericController<TCreateDTO, TFindDTO, TUpdateDTO, TPatchDTO, T
       description: `${name} obtenidos con exito.`,
       type: ClassPaggingDTO,
     })
-    async findAll(@Query() body: TFindDTO): Promise<any> {
-      return this.service.findAll(body);
+    findAll(@Query(new DefaultValuePipe(false), ParseSequelizePipe) query: TFindDTO): Promise<any> {
+      return this.service.findAll(query as unknown as Omit<FindAndCountOptions<TFindDTO>, "group">);
     }
 
     @Get(':id')
