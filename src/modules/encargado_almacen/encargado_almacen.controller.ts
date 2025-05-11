@@ -15,7 +15,7 @@ export class EncargadoAlmacenController extends GenericController<CreateEncargad
   PatchEncargadoAlmacenDTO,
   EncargadoAlmacenDTO,
   EncargadoAlmacenPaggingDTO,
-  'EncargadoAlmacen'
+  'Encargado Almacen'
 ) {
   constructor(private readonly EncargadoAlmacenService: EncargadoAlmacenService) {
     super(EncargadoAlmacenService);

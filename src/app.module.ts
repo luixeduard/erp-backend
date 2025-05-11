@@ -15,6 +15,10 @@ import { ProveedorModule } from './modules/proveedor/proveedor.module';
 import { ArchivoModule } from './modules/archivo/archivo.module';
 import { EntradaModule } from './modules/entrada/entrada.module';
 import { EncargadoAlmacenModule } from './modules/encargado_almacen/encargado_almacen.module';
+import { OrdenProduccionModule } from './modules/orden_produccion/orden_produccion.module';
+import { ArticulosOrdenModule } from './modules/articulos_orden/articulos_orden.module';
+import { ArticulosEntradaModule } from './modules/articulos_entrada/articulos_entrada.module';
+import { ClienteModule } from './modules/cliente/cliente.module';
 
 @Module({
   imports: [
@@ -36,7 +40,11 @@ import { EncargadoAlmacenModule } from './modules/encargado_almacen/encargado_al
     ProveedorModule,
     ArchivoModule,
     EntradaModule,
-    EncargadoAlmacenModule
+    EncargadoAlmacenModule,
+    OrdenProduccionModule,
+    ArticulosOrdenModule,
+    ArticulosEntradaModule,
+    ClienteModule
   ],
   controllers: [],
   providers: [],
