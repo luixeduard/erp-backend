@@ -24,7 +24,8 @@ export class OrdenProduccionService extends BaseService<OrdenProduccion, CreateO
       await this.ArticulosOrdenModel.bulkCreate(data.articulos.map(articulo =>
       ({
         ...articulo,
-        orden_produccion_id: new_entry._id
+        orden_produccion_id: new_entry._id,
+        is_complete: false,
       })), {
         transaction
       })

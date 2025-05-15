@@ -1,8 +1,10 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, PickType } from "@nestjs/swagger";
 import { IsDate, IsEnum, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
 import { StatusOrden } from "../enum/status.enum";
 import { CreateArticulosOrdenDTO } from "src/modules/articulos_orden/dto/create.dto";
 import { Type } from "class-transformer";
+
+class AgregarArticuloDTO extends PickType(CreateArticulosOrdenDTO, ["insumo_id", "cantidad"]){}
 
 export class CreateOrdenDTO {
   @ApiProperty()
@@ -30,8 +32,8 @@ export class CreateOrdenDTO {
   @IsEnum(StatusOrden)
   readonly status: StatusOrden
 
-  @ApiProperty({ type: CreateArticulosOrdenDTO, isArray: true })
+  @ApiProperty({ type: AgregarArticuloDTO, isArray: true })
   @ValidateNested({ each: true })
-  @Type(() => CreateArticulosOrdenDTO)
-  readonly articulos: CreateArticulosOrdenDTO[]
+  @Type(() => AgregarArticuloDTO)
+  readonly articulos: AgregarArticuloDTO[]
 }
