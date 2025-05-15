@@ -18,7 +18,7 @@ export class EntradaService extends BaseService<Entrada, CreateEntradaDTO, Updat
     super(EntradaModel)
   }
 
-  create(data: CreateEntradaDTO & { articulos: ArticulosEntradaDTO[] }) {
+  create(data: CreateEntradaDTO) {
     return this.sequelize.transaction(async transaction => {
       const new_entry = await this.EntradaModel.create(data, { transaction });
       const created = await this.ArticulosEntradaModel.bulkCreate(data.articulos.map(articulo =>

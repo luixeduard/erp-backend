@@ -18,7 +18,7 @@ export class OrdenProduccionService extends BaseService<OrdenProduccion, CreateO
     super(OrdenProduccionModel)
   }
 
-  create(data: CreateOrdenDTO & { articulos: ArticulosOrdenDTO[] }) {
+  create(data: CreateOrdenDTO) {
     return this.sequelize.transaction(async transaction => {
       const new_entry = await this.OrdenProduccionModel.create(data, { transaction });
       await this.ArticulosOrdenModel.bulkCreate(data.articulos.map(articulo =>

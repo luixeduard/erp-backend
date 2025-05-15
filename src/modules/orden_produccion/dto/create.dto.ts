@@ -1,6 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsDate, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
 import { StatusOrden } from "../enum/status.enum";
+import { CreateArticulosOrdenDTO } from "src/modules/articulos_orden/dto/create.dto";
+import { Type } from "class-transformer";
 
 export class CreateOrdenDTO {
   @ApiProperty()
@@ -27,4 +29,9 @@ export class CreateOrdenDTO {
   @IsNotEmpty()
   @IsNumber()
   readonly status: StatusOrden
+
+  @ApiProperty({ type: CreateArticulosOrdenDTO, isArray: true })
+  @ValidateNested({ each: true })
+  @Type(() => CreateArticulosOrdenDTO)
+  readonly articulos: CreateArticulosOrdenDTO[]
 }

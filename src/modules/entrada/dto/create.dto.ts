@@ -1,5 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
+import { ArticulosEntradaDTO } from "./articulo.dto";
+import { Type } from "class-transformer";
+import { CreateArticulosEntradaDTO } from "src/modules/articulos_entrada/dto/create.dto";
 
 export class CreateEntradaDTO {
   @ApiProperty()
@@ -26,4 +29,9 @@ export class CreateEntradaDTO {
   @IsNotEmpty()
   @IsNumber()
   readonly firma_id: number
+
+  @ApiProperty({ type: CreateArticulosEntradaDTO, isArray: true })
+  @ValidateNested({ each: true })
+  @Type(() => CreateArticulosEntradaDTO)
+  articulos: CreateArticulosEntradaDTO[]
 }

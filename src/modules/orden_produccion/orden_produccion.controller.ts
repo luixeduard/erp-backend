@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { OrdenProduccionService } from './orden_produccion.service';
 import { GenericController } from 'src/core/global/controller/base.controller';
 import { CreateOrdenDTO } from './dto/create.dto';
@@ -19,9 +19,5 @@ export class OrdenProduccionController extends GenericController<CreateOrdenDTO,
 ) {
   constructor(private readonly OrdenProduccionService: OrdenProduccionService) {
     super(OrdenProduccionService);
-  }
-
-  create(body: CreateOrdenDTO & { articulos: ArticulosOrdenDTO[] }) {
-    return this.OrdenProduccionService.create(body)
   }
 }
