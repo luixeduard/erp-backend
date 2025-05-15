@@ -4,7 +4,7 @@ import { StatusOrden } from "../enum/status.enum";
 import { CreateArticulosOrdenDTO } from "src/modules/articulos_orden/dto/create.dto";
 import { Type } from "class-transformer";
 
-class AgregarArticuloDTO extends PickType(CreateArticulosOrdenDTO, ["insumo_id", "cantidad"]){}
+class AgregarArticuloOrdenDTO extends PickType(CreateArticulosOrdenDTO, ["insumo_id", "cantidad"]){}
 
 export class CreateOrdenDTO {
   @ApiProperty()
@@ -32,8 +32,8 @@ export class CreateOrdenDTO {
   @IsEnum(StatusOrden)
   readonly status: StatusOrden
 
-  @ApiProperty({ type: AgregarArticuloDTO, isArray: true })
+  @ApiProperty({ type: AgregarArticuloOrdenDTO, isArray: true })
   @ValidateNested({ each: true })
-  @Type(() => AgregarArticuloDTO)
-  readonly articulos: AgregarArticuloDTO[]
+  @Type(() => AgregarArticuloOrdenDTO)
+  readonly articulos: AgregarArticuloOrdenDTO[]
 }
