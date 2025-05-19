@@ -15,8 +15,8 @@ import { Archivo } from "src/modules/archivo/entity/archivo.entity";
     where: { deletedAt: null }
   }]
 })
-  
-export class Entrada extends Model<CreateEntradaDTO, CreateEntradaDTO> {
+
+export class Entrada extends Model<CreateEntradaDTO & { _id: number }, CreateEntradaDTO> {
   @Column({
     primaryKey: true,
     allowNull: false,

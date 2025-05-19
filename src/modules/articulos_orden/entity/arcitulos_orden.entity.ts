@@ -16,7 +16,7 @@ import { OrdenProduccion } from "src/modules/orden_produccion/entity/orden_produ
   }]
 })
 
-export class ArticulosOrden extends Model<CreateArticulosOrdenDTO, CreateArticulosOrdenDTO> {
+export class ArticulosOrden extends Model<CreateArticulosOrdenDTO & { actual: number }, CreateArticulosOrdenDTO> {
   @Column({
     primaryKey: true,
     allowNull: false,
@@ -48,6 +48,13 @@ export class ArticulosOrden extends Model<CreateArticulosOrdenDTO, CreateArticul
     allowNull: true
   })
   cantidad: number
+
+  @Column({
+    type: DataType.FLOAT,
+    allowNull: false,
+    defaultValue: 0
+  })
+  actual: number
 
   @Column({
     type: DataType.BOOLEAN,

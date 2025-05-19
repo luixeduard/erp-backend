@@ -10,6 +10,8 @@ export class ArticulosOrdenDTO extends DBRecordDTO {
   readonly insumo_id: number
   @ApiProperty({ example: faker.number.int(100) })
   readonly cantidad?: number
+  @ApiProperty({ example: faker.number.int(100) })
+  readonly actual?: number
   @ApiProperty({ example: false })
   readonly is_complete?: boolean
 }

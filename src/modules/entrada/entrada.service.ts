@@ -24,7 +24,7 @@ export class EntradaService extends BaseService<Entrada, CreateEntradaDTO, Updat
       const created = await this.ArticulosEntradaModel.bulkCreate(data.articulos.map(articulo =>
       ({
         ...articulo,
-        orden_id: new_entry._id
+        orden_id: new_entry.get()._id
       })), {
         transaction,
         include: [
@@ -41,8 +41,8 @@ export class EntradaService extends BaseService<Entrada, CreateEntradaDTO, Updat
         if (!find) {
           throw new ConflictException("No existe el producto en la orden de producción");
         }
-        const new_increment = await find.increment({ cantidad: c.cantidad * -1 }, { transaction })
-        if (new_increment.cantidad <= 0) {
+        const new_increment = await find.increment({ actual: c.cantidad }, { transaction })
+        if (new_increment.actual >= new_increment.cantidad) {
           new_increment.set({ is_complete: true })
           return new_increment.save({ transaction })
         }
