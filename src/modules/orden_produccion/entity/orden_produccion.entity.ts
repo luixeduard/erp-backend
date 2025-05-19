@@ -15,8 +15,8 @@ import { ArticulosOrden } from "src/modules/articulos_orden/entity/arcitulos_ord
     where: { deletedAt: null }
   }]
 })
-  
-export class OrdenProduccion extends Model<CreateOrdenDTO, CreateOrdenDTO> {
+
+export class OrdenProduccion extends Model<CreateOrdenDTO & { _id: number }, CreateOrdenDTO> {
   @Column({
     primaryKey: true,
     allowNull: false,
