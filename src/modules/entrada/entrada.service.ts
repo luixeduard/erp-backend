@@ -6,7 +6,8 @@ import { PatchEntradaDTO, UpdateEntradaDTO } from "./dto/update.dto";
 import { Entrada } from "./entity/entrada.entity";
 import { ArticulosEntrada } from "../articulos_entrada/entity/arcitulos_entrada.entity";
 import { Sequelize } from "sequelize-typescript";
-import { ArticulosEntradaDTO } from "./dto/articulo.dto";
+import { OrdenProduccion } from "../orden_produccion/entity/orden_produccion.entity";
+import { Insumo } from "../insumo/entity/insumo.entity";
 
 @Injectable()
 export class EntradaService extends BaseService<Entrada, CreateEntradaDTO, UpdateEntradaDTO, PatchEntradaDTO> {
@@ -20,28 +21,40 @@ export class EntradaService extends BaseService<Entrada, CreateEntradaDTO, Updat
 
   create(data: CreateEntradaDTO) {
     return this.sequelize.transaction(async transaction => {
-      const new_entry = await this.EntradaModel.create(data, { transaction });
-      const created = await this.ArticulosEntradaModel.bulkCreate(data.articulos.map(articulo =>
-      ({
-        ...articulo,
-        orden_id: new_entry.get()._id
-      })), {
-        transaction,
+      const new_entry = await this.EntradaModel.create(data, { transaction, raw: true });
+
+       await this.ArticulosEntradaModel.bulkCreate(
+        data.articulos.map(articulo => ({
+          ...articulo,
+          orden_id: new_entry.get()._id
+        })),
+        { transaction }
+      );
+
+      const createdInclude = await this.ArticulosEntradaModel.findAll({
+        where: { orden_id: new_entry.get()._id },
         include: [
           {
-            association: "orden_produccion_id",
+            association: "orden_produccion",
             include: [
               { association: "articulos" }
             ]
           }
-        ]
-      })
-      await Promise.all(created.map(async c => {
-        const find = c.orden_produccion.articulos.find(articulo => articulo.insumo_id === c.insumo_id)
+        ],
+        transaction
+      }) as unknown as (ArticulosEntrada & {
+        orden_produccion: OrdenProduccion & {
+          articulos: Insumo[];
+        }
+      })[];
+
+      await Promise.all(createdInclude.map(async c => {        
+        const find = c.dataValues.orden_produccion.dataValues.articulos.find(articulo => articulo.insumo_id === c.insumo_id)
         if (!find) {
           throw new ConflictException("No existe el producto en la orden de producción");
         }
-        const new_increment = await find.increment({ actual: c.cantidad }, { transaction })
+        
+        const new_increment = await (find as any).increment({ actual: c.dataValues.cantidad }, { transaction })
         if (new_increment.actual >= new_increment.cantidad) {
           new_increment.set({ is_complete: true })
           return new_increment.save({ transaction })

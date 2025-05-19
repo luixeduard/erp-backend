@@ -21,4 +21,5 @@ export class CreateArticulosEntradaDTO {
   @IsOptional()
   @IsNumber()
   readonly cantidad?: number
+  orden_produccion: any;
 }
